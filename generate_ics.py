@@ -42,9 +42,11 @@ def fetch_jornada(j):
         f"&CodGrupo={GRUPO}&CodTemporada={TEMPORADA}"
         f"&CodJornada={j}&Sch_Tipo_Juego=3&cod_agrupacion=1"
     )
+
     r = requests.get(url, headers=HEADERS, timeout=30)
     r.raise_for_status()
-        if j in [5, 6, 7, 10]:
+
+    if j in [5, 6, 7, 10]:
         print("\n========== DIAGNÓSTICO ==========")
         print("JORNADA:", j)
         print("URL:", r.url)
@@ -57,6 +59,7 @@ def fetch_jornada(j):
         texto = norm(s.get_text(" ", strip=True))
         print("TEXTO:", texto[:1500])
         print("================================")
+
     return BeautifulSoup(r.text, "lxml")
 
 
