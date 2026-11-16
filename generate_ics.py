@@ -1,3 +1,20 @@
+import requests
+
+url = (
+    "https://www.asturfutbol.es/pnfg/NPcd/NFG_VisCalendario_Vis"
+    "?CDetalle=1&NPcd_Pdf=&cod_primaria=1000120"
+    "&codcompeticion=22880369&codgrupo=23105615"
+    "&codtemporada=22"
+)
+
+r = requests.get(url, headers={
+    "User-Agent": "Mozilla/5.0"
+}, timeout=30)
+
+print("HTTP:", r.status_code)
+print("Bytes:", len(r.content))
+print("URL final:", r.url)
+print(r.text[:500])
 
 import re
 import time
