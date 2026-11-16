@@ -21,6 +21,14 @@ HEADERS = {
 DATE_RE = re.compile(r"\d{2}-\d{2}-\d{4}")
 TIME_RE = re.compile(r"\d{1,2}:\d{2}")
 RUIDO_RE = re.compile(r"^[\d\s:\-–]*$")
+SIN_RIVAL = "Rival por confirmar"
+
+TIPOS = [
+    "Pista de Colegio", "Hierba artificial", "Hierba natural",
+    "Césped artificial", "Césped natural", "Hierba", "Césped",
+    "Polideportivo", "Cubierto", "Parquet", "Tierra", "Pista",
+]
+TIPOS_RE = "|".join(re.escape(t) for t in TIPOS)
 
 
 def norm(s):
@@ -50,7 +58,20 @@ def bloques_partido(soup):
     return [t for t in candidatos if not any(id(d) in ids for d in t.find_all(True))]
 
 
-def parse_block(tag, jornada):
+def campo_tras(flat, fin):
+    """Texto en mayúsculas que sigue al visitante, hasta el tipo de pista."""
+    m = re.match(r"\s+(.{3,90}?)\s+(?:" + TIPOS_RE + r")\b", flat[fin:])
+    return m.group(1) if m else ""
+
+
+def localizar(flat, date_str, nombre):
+    m = re.search(
+        re.escape(date_str) + r"(?:\s+\d{1,2}:\d{2})?\s+" + re.escape(nombre), flat
+    )
+    return m.end() if m else None
+
+
+def parse_block(tag, jornada, flat_pagina):
     flat = norm(tag.get_text(" ", strip=True))
     tokens = [norm(t) for t in tag.get_text("|", strip=True).split("|")]
     tokens = [t for t in tokens if t]
@@ -69,22 +90,68 @@ def parse_block(tag, jornada):
         rival = despues[0] if despues else ""
     else:
         rival = antes[-1] if antes else ""
-    campo = despues[1] if len(despues) > 1 else ""
-
     if not rival or TEAM_NAME in rival or len(rival) > 60:
-        rival = "Rival por confirmar"
-    if campo.startswith("Árbitro"):
-        campo = ""
+        rival = SIN_RIVAL
+
+    campo = ""
+    visitante = rival if en_casa else TEAM_NAME
+    if visitante != SIN_RIVAL:
+        fin = localizar(flat_pagina, date_str, visitante)
+        if fin is not None:
+            campo = campo_tras(flat_pagina, fin)
 
     return {
-        "jornada": jornada,
-        "date": date_str,
-        "time": time_str,
-        "rival": rival,
-        "campo": campo,
-        "en_casa": en_casa,
-        "tokens": tokens,
+        "jornada": jornada, "date": date_str, "time": time_str,
+        "rival": rival, "campo": campo, "en_casa": en_casa,
+        "tokens": tokens, "via": "bloque",
     }
+
+
+def parse_texto(flat, jornada):
+    """Plan B: busca el partido en el texto plano de la página."""
+    fecha = r"(\d{2}-\d{2}-\d{4})(?:\s+(\d{1,2}:\d{2}))?"
+    marcador = r"(?:\d+\s*-\s*\d*\s+)?"
+    equipo = re.escape(TEAM_NAME)
+
+    # En casa: EQUIPO [marcador] FECHA [HORA] RIVAL "X"
+    m = re.search(
+        equipo + r"\s+" + marcador + fecha + r'\s+(.{1,60}?"[A-Za-z0-9]")', flat
+    )
+    if m:
+        return {
+            "jornada": jornada, "date": m.group(1), "time": m.group(2),
+            "rival": m.group(3), "campo": campo_tras(flat, m.end()),
+            "en_casa": True, "tokens": [], "via": "texto",
+        }
+
+    # Fuera: LOCAL [marcador] FECHA [HORA] EQUIPO
+    m = re.search(fecha + r"\s+" + equipo, flat)
+    if not m:
+        return None
+    pre = re.sub(r"[\d\s\-–]+$", "", flat[:m.start()])
+    ult = None
+    for t in re.finditer(TIPOS_RE, pre):
+        ult = t
+    cand = pre[ult.end():].strip() if ult else ""
+    if not cand or len(cand) > 60 or "Árbitro" in cand:
+        cand = SIN_RIVAL
+    return {
+        "jornada": jornada, "date": m.group(1), "time": m.group(2),
+        "rival": cand, "campo": campo_tras(flat, m.end()),
+        "en_casa": False, "tokens": [], "via": "texto",
+    }
+
+
+def depurar(soup, flat):
+    print("  DEBUG: el equipo aparece en la página pero no se pudo leer el partido")
+    for k, m in enumerate(re.finditer(re.escape(TEAM_NAME), flat)):
+        if k >= 2:
+            break
+        print("  DEBUG texto:", flat[max(0, m.start() - 200): m.end() + 300])
+    s = soup.find(string=lambda x: x and TEAM_NAME in x)
+    if s is not None and s.parent is not None:
+        el = s.parent.parent if s.parent.parent is not None else s.parent
+        print("  DEBUG html:", re.sub(r"\s+", " ", str(el))[:900])
 
 
 def esc(s):
@@ -169,20 +236,39 @@ def generate_ics(partidos):
 def main():
     print("Buscando partidos de", TEAM_NAME)
     partidos = []
+    debug_hecho = False
+
     for j in range(1, NUM_JORNADAS + 1):
         try:
             soup = fetch_jornada(j)
+            flat = norm(soup.get_text(" ", strip=True))
+
+            p = None
             bloques = bloques_partido(soup)
-            if not bloques:
-                print(f"Jornada {j}: sin partido (descansa o aún no publicado)")
+            if bloques:
+                p = parse_block(bloques[0], j, flat)
             else:
-                p = parse_block(bloques[0], j)
+                p = parse_texto(flat, j)
+
+            if p is None:
+                if TEAM_NAME not in flat:
+                    print(f"Jornada {j}: sin partido (el equipo no aparece)")
+                elif re.search(r"Descansa\s+" + re.escape(TEAM_NAME), flat):
+                    print(f"Jornada {j}: descansa")
+                else:
+                    print(f"Jornada {j}: NO SE PUDO LEER")
+                    if not debug_hecho:
+                        depurar(soup, flat)
+                        debug_hecho = True
+            else:
                 partidos.append(p)
                 print(
                     f"Jornada {j}: {p['date']} {p['time'] or '--:--'} | "
-                    f"{'CASA' if p['en_casa'] else 'FUERA'} | {p['rival']} | {p['campo']}"
+                    f"{'CASA' if p['en_casa'] else 'FUERA'} | {p['rival']} | "
+                    f"{p['campo']} [{p['via']}]"
                 )
-                print("    tokens:", p["tokens"])
+                if p["rival"] == SIN_RIVAL and p["tokens"]:
+                    print("    tokens:", p["tokens"])
         except Exception as e:
             print(f"Jornada {j}: ERROR {e}")
         time.sleep(0.5)
