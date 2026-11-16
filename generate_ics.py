@@ -44,6 +44,19 @@ def fetch_jornada(j):
     )
     r = requests.get(url, headers=HEADERS, timeout=30)
     r.raise_for_status()
+        if j in [5, 6, 7, 10]:
+        print("\n========== DIAGNÓSTICO ==========")
+        print("JORNADA:", j)
+        print("URL:", r.url)
+        print("ESTADO HTTP:", r.status_code)
+        print("LONGITUD HTML:", len(r.text))
+
+        s = BeautifulSoup(r.text, "lxml")
+        print("TÍTULO:", s.title.get_text(strip=True) if s.title else "Sin título")
+
+        texto = norm(s.get_text(" ", strip=True))
+        print("TEXTO:", texto[:1500])
+        print("================================")
     return BeautifulSoup(r.text, "lxml")
 
 
