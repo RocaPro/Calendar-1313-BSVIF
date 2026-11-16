@@ -16,6 +16,7 @@ COMPETICION = "22880369"
 GRUPO = "23105615"
 NUM_JORNADAS = 30
 OUTPUT_FILE = "virgen-inmaculada-f.ics"
+PETICIONES_SESION = 0
 
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
@@ -54,67 +55,87 @@ def norm(s):
 # ==================================================
 
 def fetch_jornada(j):
+
+    global SESSION
+
     global SESSION_INICIADA
 
-    url = (
-        "https://www.asturfutbol.es/pnfg/NPcd/NFG_CmpJornada"
-        f"?cod_primaria=1000120&CodCompeticion={COMPETICION}"
-        f"&CodGrupo={GRUPO}&CodTemporada={TEMPORADA}"
-        f"&CodJornada={j}&Sch_Tipo_Juego=3&cod_agrupacion=1"
-    )
+    global PETICIONES_SESION
 
-    # Abrir primero la web para obtener las cookies
-    if not SESSION_INICIADA:
+    # Renovar sesión cada 8 consultas
+
+    if not SESSION_INICIADA or PETICIONES_SESION >= 8:
+
+        SESSION.close()
+
+        SESSION = requests.Session()
+
+        SESSION.headers.update(HEADERS)
+
         inicio = SESSION.get(
+
             "https://www.asturfutbol.es/",
+
             timeout=30
+
         )
+
         print(
-            "Inicio web:",
+
+            "Nueva sesión:",
+
             inicio.status_code,
+
             len(inicio.text)
+
         )
+
         SESSION_INICIADA = True
 
-    # Consultar jornada usando la misma sesión
-    r = SESSION.get(
-        url,
-        headers={
-            "Referer": "https://www.asturfutbol.es/"
-        },
-        timeout=30
+        PETICIONES_SESION = 0
+
+    url = (
+
+        "https://www.asturfutbol.es/pnfg/NPcd/NFG_CmpJornada"
+
+        f"?cod_primaria=1000120&CodCompeticion={COMPETICION}"
+
+        f"&CodGrupo={GRUPO}&CodTemporada={TEMPORADA}"
+
+        f"&CodJornada={j}&Sch_Tipo_Juego=3&cod_agrupacion=1"
+
     )
 
+    r = SESSION.get(
+
+        url,
+
+        headers={"Referer": "https://www.asturfutbol.es/"},
+
+        timeout=30
+
+    )
+
+    PETICIONES_SESION += 1
+
     print(
+
         f"Jornada {j}: HTTP {r.status_code} | "
-        f"HTML {len(r.text)} bytes | URL final: {r.url}"
+
+        f"HTML {len(r.text)} bytes"
+
     )
 
     r.raise_for_status()
 
-    # Diagnóstico de las jornadas 5, 6, 7 y 10
-    if j in [5, 6, 7, 10]:
-        print("\n========== DIAGNÓSTICO ==========")
-        print("JORNADA:", j)
-        print("URL:", r.url)
-        print("ESTADO HTTP:", r.status_code)
-        print("LONGITUD HTML:", len(r.text))
-
-        s = BeautifulSoup(r.text, "lxml")
-        print(
-            "TÍTULO:",
-            s.title.get_text(strip=True) if s.title else "Sin título"
-        )
-
-        texto = norm(s.get_text(" ", strip=True))
-        print("TEXTO:", texto[:1500])
-        print("================================")
-
-    # Detectar páginas vacías o redirecciones al login
     if not r.text.strip() or "NLogin" in r.url:
+
         PAGINAS_NO_DISPONIBLES.append(j)
+
         raise RuntimeError(
+
             f"Asturfutbol no ha entregado la jornada {j}"
+
         )
 
     return BeautifulSoup(r.text, "lxml")
