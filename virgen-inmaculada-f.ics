@@ -88,9 +88,9 @@ END:VEVENT
 BEGIN:VEVENT
 UID:j9-22903000@asturfutbol-cal
 DTSTAMP:20260101T000000Z
-DTSTART;VALUE=DATE:20261128
-DTEND;VALUE=DATE:20261129
-SUMMARY:J9: Navarro C.F. Alusin Solar "A" vs C.D. Virgen Inmaculada "F" (hora por confirmar)
+DTSTART;TZID=Europe/Madrid:20261128T150000
+DTEND;TZID=Europe/Madrid:20261128T161500
+SUMMARY:J9: Navarro C.F. Alusin Solar "A" vs C.D. Virgen Inmaculada "F"
 LOCATION:POLIDEPORTIVO LA LUZ
 DESCRIPTION:Jornada 9 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
 END:VEVENT
