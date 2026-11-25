@@ -30,6 +30,11 @@ DTEND;TZID=Europe/Madrid:20261010T134500
 SUMMARY:J2: C.D. Virgen Inmaculada "F" vs Real Avilés Industrial C.F. SAD "C"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 2 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j3-22903000@asturfutbol-cal
@@ -39,6 +44,11 @@ DTEND;TZID=Europe/Madrid:20261017T174500
 SUMMARY:J3: Club Marino de Luanco "B" vs C.D. Virgen Inmaculada "F"
 LOCATION:POLIDEPORTIVO LUANCO
 DESCRIPTION:Jornada 3 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j4-22903000@asturfutbol-cal
@@ -48,6 +58,11 @@ DTEND;TZID=Europe/Madrid:20261024T111500
 SUMMARY:J4: C.D. Virgen Inmaculada "F" vs Grupo Deportivo Bosco "A"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 4 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j5-22903000@asturfutbol-cal
@@ -57,6 +72,11 @@ DTEND;TZID=Europe/Madrid:20261031T111500
 SUMMARY:J5: C.D. Raices "D" vs C.D. Virgen Inmaculada "F"
 LOCATION:C.P. RAICES CASTILLO GAUZON
 DESCRIPTION:Jornada 5 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j6-22903000@asturfutbol-cal
@@ -66,6 +86,11 @@ DTEND;TZID=Europe/Madrid:20261107T123500
 SUMMARY:J6: C.D. Virgen Inmaculada "F" vs S.D. Cancienes "A"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 6 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j7-22903000@asturfutbol-cal
@@ -75,6 +100,11 @@ DTEND;TZID=Europe/Madrid:20261114T134500
 SUMMARY:J7: San Fernando C.F. "D" vs C.D. Virgen Inmaculada "F"
 LOCATION:COLEGIO SAN FERNANDO PISTA
 DESCRIPTION:Jornada 7 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j8-22903000@asturfutbol-cal
@@ -84,6 +114,11 @@ DTEND;TZID=Europe/Madrid:20261121T130000
 SUMMARY:J8: C.D. Virgen Inmaculada "F" vs 5 As F.S. "A"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 8 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j9-22903000@asturfutbol-cal
@@ -93,6 +128,11 @@ DTEND;TZID=Europe/Madrid:20261128T161500
 SUMMARY:J9: Navarro C.F. Alusin Solar "A" vs C.D. Virgen Inmaculada "F"
 LOCATION:POLIDEPORTIVO LA LUZ
 DESCRIPTION:Jornada 9 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j10-22903000@asturfutbol-cal
@@ -102,6 +142,11 @@ DTEND;TZID=Europe/Madrid:20261205T184500
 SUMMARY:J10: C.D. Virgen Inmaculada "F" vs Llaranes C.F. "B"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 10 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j11-22903000@asturfutbol-cal
@@ -120,6 +165,11 @@ DTEND;TZID=Europe/Madrid:20261219T184500
 SUMMARY:J12: C.D. Virgen Inmaculada "F" vs C.D. Raices "A"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 12 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j13-22903000@asturfutbol-cal
@@ -138,6 +188,11 @@ DTEND;TZID=Europe/Madrid:20270116T191500
 SUMMARY:J14: C.D. Virgen Inmaculada "F" vs San Fernando C.F. "B"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 14 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j15-22903000@asturfutbol-cal
@@ -165,6 +220,11 @@ DTEND;TZID=Europe/Madrid:20270213T194500
 SUMMARY:J18: C.D. Virgen Inmaculada "F" vs Club Marino de Luanco "B"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 18 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j19-22903000@asturfutbol-cal
@@ -183,6 +243,11 @@ DTEND;TZID=Europe/Madrid:20270227T200000
 SUMMARY:J20: C.D. Virgen Inmaculada "F" vs C.D. Raices "D"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 20 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j21-22903000@asturfutbol-cal
@@ -201,6 +266,11 @@ DTEND;TZID=Europe/Madrid:20270313T201500
 SUMMARY:J22: C.D. Virgen Inmaculada "F" vs San Fernando C.F. "D"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 22 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j23-22903000@asturfutbol-cal
@@ -219,6 +289,11 @@ DTEND;TZID=Europe/Madrid:20270410T214500
 SUMMARY:J24: C.D. Virgen Inmaculada "F" vs Navarro C.F. Alusin Solar "A"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 24 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j25-22903000@asturfutbol-cal
@@ -237,6 +312,11 @@ DTEND;TZID=Europe/Madrid:20270424T221500
 SUMMARY:J26: C.D. Virgen Inmaculada "F" vs C.F. Versalles "A"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 26 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j27-22903000@asturfutbol-cal
@@ -255,6 +335,11 @@ DTEND;TZID=Europe/Madrid:20270515T221500
 SUMMARY:J28: C.D. Virgen Inmaculada "F" vs C.D. Los Campos "D"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 28 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:j29-22903000@asturfutbol-cal
@@ -273,5 +358,10 @@ DTEND;TZID=Europe/Madrid:20270529T221500
 SUMMARY:J30: C.D. Virgen Inmaculada "F" vs Club Victoria "B"
 LOCATION:COLEGIO INMACULADA PISTA 1
 DESCRIPTION:Jornada 30 - 3ª Benjamín. Generado automáticamente desde Asturfutbol
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Partido en 2 horas
+TRIGGER:-PT2H
+END:VALARM
 END:VEVENT
 END:VCALENDAR
